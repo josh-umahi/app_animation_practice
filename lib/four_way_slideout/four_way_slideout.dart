@@ -49,19 +49,19 @@ class _FourWaySlideoutState extends State<FourWaySlideout>
     /// the middle button to start animating
     final minValueForButton = 0.3;
 
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (context, state) {
-        final animationControllerValue = animationController.value;
+    return Scaffold(
+      body: AnimatedBuilder(
+        animation: animationController,
+        builder: (context, state) {
+          final animationControllerValue = animationController.value;
 
-        return Scaffold(
-          body: Stack(
+          return Stack(
             children: [
               FractionallySizedBox(
                 widthFactor: 1,
                 heightFactor: 1,
                 child: FittedBox(
-                  child: Image.asset("assets/bg.jpg"),
+                  child: Image.asset("assets/four_way_slideout/bg.jpg"),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -147,9 +147,9 @@ class _FourWaySlideoutState extends State<FourWaySlideout>
                     )
                   : SizedBox(),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'meal_menu/meal_menu.dart';
 import 'four_way_slideout/four_way_slideout.dart';
 
 void main() {
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
       ),
-      home: FourWaySlideout(),
+      // home: FourWaySlideout(),
+      home: MealMenu(),
     );
   }
 }
