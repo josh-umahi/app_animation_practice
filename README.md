@@ -1,4 +1,4 @@
-# animation_practice
+# App Animation Practice
 
 Some app animation practice projects I did with Flutter.
 
