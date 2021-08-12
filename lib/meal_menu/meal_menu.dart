@@ -3,9 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
-import 'tile.dart';
+import 'models.dart';
+import 'tile_container.dart';
 
 class MealMenu extends StatefulWidget {
+  final Widget restartContainer;
+  final Function(Offset startOffset, MenuTile menuTile)? onTIleClick;
+  MealMenu({
+    required this.restartContainer,
+    required this.onTIleClick,
+  });
+
   @override
   _MealMenuState createState() => _MealMenuState();
 }
@@ -18,7 +26,7 @@ class _MealMenuState extends State<MealMenu>
   void initState() {
     super.initState();
     animationController = AnimationController(
-      duration: Duration(milliseconds: 420),
+      duration: Constants.launchAnimationDuration,
       vsync: this,
     );
     slideEntry();
@@ -47,7 +55,23 @@ class _MealMenuState extends State<MealMenu>
           curve: Curves.easeInOut,
           parent: animationController,
         ),
-        builder: (context, state) {
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            widget.restartContainer,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: Constants.leftPadding,
+                bottom: Constants.leftPadding + 5,
+              ),
+              child: Text(
+                "Select a meal",
+                style: Constants.textStyle(30).copyWith(height: 0),
+              ),
+            ),
+          ],
+        ),
+        builder: (context, child) {
           final animationControllerValue = animationController.value;
 
           final row1Col1TileOffsetX =
@@ -77,126 +101,99 @@ class _MealMenuState extends State<MealMenu>
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SafeArea(
-                child: Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(vertical: 52),
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      animationController.value = 0;
-                      slideEntry();
-                    },
-                    backgroundColor: Constants.primaryColor,
-                    child: Icon(
-                      Icons.play_arrow_rounded,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: Constants.leftPadding,
-                  bottom: Constants.leftPadding + 5,
-                ),
-                child: Text(
-                  "Select a meal",
-                  style: Constants.textStyle(30).copyWith(height: 0),
-                ),
-              ),
+              child!,
               TileRow(
                 tiles: [
-                  MenuTile(
-                    tileWidth: tileWidth,
-                    tilePosition: TilePosition.Row1Col1,
-                    isOnLeft: true,
-                    tileOffset: Offset(
-                      row1Col1TileOffsetX,
-                      0,
-                    ),
-                    iconAngle: 0,
-                    iconOffset: Offset(
-                      -row1Col2IconOffsetX,
-                      0,
+                  TileContainer(
+                    MenuTile(
+                      width: tileWidth,
+                      position: TilePosition.Row1Col1,
+                      offsetX: row1Col1TileOffsetX,
+                      iconAngle: 0,
+                      iconOffset: Offset(
+                        row1Col1IconOffsetX,
+                        0,
+                      ),
+                      isOnLeft: true,
+                      onTap: widget.onTIleClick,
                     ),
                   ),
-                  MenuTile(
-                    tileWidth: tileWidth,
-                    tilePosition: TilePosition.Row1Col2,
-                    isOnLeft: false,
-                    tileOffset: Offset(
-                      row1Col2TileOffsetX,
-                      0,
-                    ),
-                    iconAngle: rightIconsRotate,
-                    iconOffset: Offset(
-                      row1Col2IconOffsetX,
-                      0,
+                  TileContainer(
+                    MenuTile(
+                      width: tileWidth,
+                      position: TilePosition.Row1Col2,
+                      offsetX: row1Col2TileOffsetX,
+                      iconAngle: rightIconsRotate,
+                      iconOffset: Offset(
+                        row1Col2IconOffsetX,
+                        0,
+                      ),
+                      isOnLeft: false,
+                      onTap: widget.onTIleClick,
                     ),
                   ),
                 ],
               ),
               TileRow(
                 tiles: [
-                  MenuTile(
-                    tileWidth: tileWidth,
-                    tilePosition: TilePosition.Row2Col1,
-                    isOnLeft: true,
-                    tileOffset: Offset(
-                      row2Col1TileOffsetX,
-                      0,
-                    ),
-                    iconAngle: 0,
-                    iconOffset: Offset(
-                      row2Col1IconOffsetX,
-                      0,
+                  TileContainer(
+                    MenuTile(
+                      width: tileWidth,
+                      position: TilePosition.Row2Col1,
+                      offsetX: row2Col1TileOffsetX,
+                      iconAngle: 0,
+                      iconOffset: Offset(
+                        row2Col1IconOffsetX,
+                        0,
+                      ),
+                      isOnLeft: true,
+                      onTap: widget.onTIleClick,
                     ),
                   ),
-                  MenuTile(
-                    tileWidth: tileWidth,
-                    tilePosition: TilePosition.Row2Col2,
-                    isOnLeft: false,
-                    tileOffset: Offset(
-                      row2Col2TileOffsetX,
-                      0,
-                    ),
-                    iconAngle: rightIconsRotate,
-                    iconOffset: Offset(
-                      row2Col2IconOffsetX,
-                      0,
+                  TileContainer(
+                    MenuTile(
+                      width: tileWidth,
+                      position: TilePosition.Row2Col2,
+                      offsetX: row2Col2TileOffsetX,
+                      iconAngle: rightIconsRotate,
+                      iconOffset: Offset(
+                        row2Col2IconOffsetX,
+                        0,
+                      ),
+                      isOnLeft: false,
+                      onTap: widget.onTIleClick,
                     ),
                   ),
                 ],
               ),
               TileRow(
                 tiles: [
-                  MenuTile(
-                    tileWidth: tileWidth,
-                    tilePosition: TilePosition.Row3Col1,
-                    isOnLeft: true,
-                    tileOffset: Offset(
-                      row3Col1TileOffsetX,
-                      0,
-                    ),
-                    iconAngle: 0,
-                    iconOffset: Offset(
-                      row3Col1IconOffsetX,
-                      0,
+                  TileContainer(
+                    MenuTile(
+                      width: tileWidth,
+                      position: TilePosition.Row3Col1,
+                      offsetX: row3Col1TileOffsetX,
+                      iconAngle: 0,
+                      iconOffset: Offset(
+                        row3Col1IconOffsetX,
+                        0,
+                      ),
+                      isOnLeft: true,
+                      onTap: widget.onTIleClick,
                     ),
                   ),
-                  MenuTile(
-                    tileWidth: tileWidth,
-                    tilePosition: TilePosition.Row3Col2,
-                    isOnLeft: false,
-                    tileOffset: Offset(
-                      row3Col2TileOffsetX,
-                      0,
-                    ),
-                    iconAngle: rightIconsRotate,
-                    iconOffset: Offset(
-                      row3Col2IconOffsetX,
-                      0,
+                  TileContainer(
+                    MenuTile(
+                      width: tileWidth,
+                      position: TilePosition.Row3Col2,
+                      offsetX: row3Col2TileOffsetX,
+                      iconAngle: rightIconsRotate,
+                      iconOffset: Offset(
+                        row3Col2IconOffsetX,
+                        0,
+                      ),
+                      isOnLeft: false,
+                      onTap: widget.onTIleClick,
                     ),
                   ),
                 ],
